@@ -378,7 +378,7 @@ def post(tweet: Tweet = Body(...)):
         -by        : User
    
     """
-    with open("tweets.json", "r+", encoding="utf-8" ) as f:
+    with open("tweets.json", "r+", encoding="utf-8") as f: 
         results = json.loads(f.read())
         tweet_dict = tweet.dict()
         tweet_dict["tweet_id"] = str(tweet_dict["tweet_id"])
@@ -388,22 +388,53 @@ def post(tweet: Tweet = Body(...)):
         tweet_dict["by"]["birth_date"] = str(tweet_dict["by"]["birth_date"])
 
         results.append(tweet_dict)
-        f.seek(0)
-        f.write(json.dumps(results))
-        return tweet
+        with open("users.json", "w", encoding="utf-8") as f:
+            f.seek(0)
+            f.write(json.dumps(results))
+            return tweet
 
 ### Show a Tweet
 @app.get(
     path="/tweet/{tweet_id}",
-    response_model = Tweet,
+    # response_model = Tweet,
     status_code = status.HTTP_200_OK,
     summary = "Show a tweet",
     tags = ["Tweets"]
 
     )
 
-def show_a_tweet():
-    pass
+def show_a_tweet(tweet_id: UUID = Path(
+    ...,
+    title = "Tweet ID",
+    description = " this is the Tweet ID",
+    example= "3fa85f64-5717-4562-b3fc-2c963f66afa8"
+    )
+):
+    """
+    Show a Tweet
+    
+    This path operation show if a Tweet is in the app
+    
+    Parameters:
+        - Tweet_id : UUID
+
+    returns a json list with the tweet in the app, with the following keys
+        -tweet_id  : UUID
+        -content   : str
+        -create_at : datetime
+        -update_at : Optional[datetime]
+        -by        : User
+    """
+    with open("tweets.json", "r", encoding= "utf-8") as f:
+        datos = json.loads(f.read())
+        for tweet in datos:
+            if tweet["tweet_id"] == str(tweet_id) :
+                return "tweet exist!!",  tweet
+        
+        raise HTTPException(
+            status_code = status.HTTP_404_NOT_FOUND,
+            detail = "¡tweet not exist!"
+              )
 
 ### Delete a Tweet
 @app.delete(
