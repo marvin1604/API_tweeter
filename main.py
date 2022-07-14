@@ -141,9 +141,6 @@ def login(email: EmailStr= Form(...), password: str = Form(...)):
               )
 
             
-                
-        
-
 ### Show all Users
 @app.get(
     path="/users",
@@ -184,7 +181,13 @@ def show_all_users():
 
     )
 
-def show_a_user(user_id: UUID = Path(..., example= "3fa85f64-5717-4562-b3fc-2c963f66afa8" )):
+def show_a_user(user_id: UUID = Path(
+    ...,
+    title = "User ID",
+    description = " this is the user ID",
+    example= "3fa85f64-5717-4562-b3fc-2c963f66afa8"
+    )
+):
     """
     Show a User
     
@@ -193,7 +196,7 @@ def show_a_user(user_id: UUID = Path(..., example= "3fa85f64-5717-4562-b3fc-2c96
     Parameters:
         - user_id : UUID
 
-    returns a json list with all users in the app, with the following keys
+    returns a json list with the user in the app, with the following keys
         - user_id    : UUID
         - email      : Emailstr
         - first_name : str
@@ -213,20 +216,55 @@ def show_a_user(user_id: UUID = Path(..., example= "3fa85f64-5717-4562-b3fc-2c96
 
 ### Delete a User
 @app.delete(
-    path="/users/{user-id}/delete",
-    response_model = User,
+    path="/users/{user_id}/delete",
+    # response_model = User,
     status_code = status.HTTP_200_OK,
     summary = "Delete a User",
     tags = ["Users"]
 
     )
 
-def delete_a_user():
-    pass
+def delete_a_user(user_id: UUID = Path(
+    ...,
+    title = "User ID",
+    description = " this is the user ID",
+    example= "3fa85f64-5717-4562-b3fc-2c963f66afa8"
+    )
+):
+    """
+    Delete a User
+    
+    This path operation delete a user in the app
+    
+    Parameters:
+        - user_id : UUID
+
+    returns a json list with the user delete, with the following keys
+        - user_id    : UUID
+        - email      : Emailstr
+        - first_name : str
+        - last_name  : str
+        - birth_date : str
+    """
+    with open("users.json", "r+", encoding= "utf-8") as f:
+        datos = json.loads(f.read())
+        for user in datos:
+            if user["user_id"] == str(user_id):
+                datos.remove(user)
+                with open("users.json", "w", encoding="utf-8") as f:
+                    f.seek(0)
+                    f.write(json.dumps(datos))
+                    return "user delete", user
+                
+                      
+        raise HTTPException(
+            status_code = status.HTTP_404_NOT_FOUND,
+            detail = "¡user not exist!"
+              )
 
 ### Update a User
 @app.put(
-    path="/users/{user-id}/update",
+    path="/users/{user_id}/update",
     response_model = User,
     status_code = status.HTTP_200_OK,
     summary = "Update a User",
