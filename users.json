@@ -1,1 +1,42 @@
-[{"tweet_id": "3fa85f64-5717-4562-b3fc-2c963f66afa5", "content": "this is the first tweet in the history", "create_at": "2022-07-12 12:44:49.011072", "update_at": "2022-07-12 17:44:59.456000+00:00", "by": {"user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6", "email": "walter@example.com", "first_name": "walter", "last_name": "rodriguez", "birth_date": "2022-07-12"}}, {"tweet_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6", "content": "hola, este es mi primer tweet", "create_at": "2022-07-12 12:44:49.011072", "update_at": "2022-07-12 17:44:59.456000+00:00", "by": {"user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6", "email": "walter@example.com", "first_name": "walter", "last_name": "rodriguez", "birth_date": "2022-07-12"}}, {"tweet_id": "3fa85f64-5717-4562-b3fc-2c963f66afa7", "content": "me voy de tweet", "create_at": "2022-07-12 12:44:49.011072", "update_at": "2022-07-12 17:44:59.456000+00:00", "by": {"user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa8", "email": "rocior@example.com", "first_name": "rocio", "last_name": "torres", "birth_date": "2022-07-12"}}, {"tweet_id": "3fa85f64-5717-4562-b3fc-2c963f66afa8", "content": "me gusta tweet", "create_at": "2022-07-12 12:44:49.011072", "update_at": "2022-07-12 17:44:59.456000+00:00", "by": {"user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa8", "email": "rocior@example.com", "first_name": "rocio", "last_name": "torres", "birth_date": "2022-07-12"}}, {"tweet_id": "3fa85f64-5717-4562-b3fc-2c963f66afa9", "content": "Python es el mejor lenguaje", "create_at": "2022-07-14 13:07:20.967629", "update_at": "2022-07-14 18:27:16.635000+00:00", "by": {"user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa9", "email": "joselyn@example.com", "first_name": "joselyn", "last_name": "ramirez", "birth_date": "2022-07-14"}}, {"tweet_id": "3fa85f64-5717-4562-b3fc-2c963f66afa1", "content": "string", "create_at": "2022-07-14 14:03:20.736217", "update_at": "2022-07-14 19:04:30.205000+00:00", "by": {"user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa9", "email": "user@example.com", "first_name": "string", "last_name": "string", "birth_date": "2022-07-14"}}, {"tweet_id": "3fa85f64-5717-4562-b3fc-2c963f66afa1", "content": "string", "create_at": "2022-07-14 14:03:20.736217", "update_at": "2022-07-14 19:04:30.205000+00:00", "by": {"user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa9", "email": "user@example.com", "first_name": "string", "last_name": "string", "birth_date": "2022-07-14"}}, {"tweet_id": "3fa85f64-5717-4562-b3fc-2c963f66afa1", "content": "string", "create_at": "2022-07-14 14:03:20.736217", "update_at": "2022-07-14 19:04:30.205000+00:00", "by": {"user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa9", "email": "user@example.com", "first_name": "string", "last_name": "string", "birth_date": "2022-07-14"}}]
+[
+    {
+        "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa5",
+        "email": "walter@example.com",
+        "first_name": "walter",
+        "last_name": "rodriguez",
+        "birth_date": "2022-07-12",
+        "password": "holasoywalter"
+    },
+    {
+        "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "email": "miguel@example.com",
+        "first_name": "miguel",
+        "last_name": "dominguez",
+        "birth_date": "2022-07-12",
+        "password": "holasoymiguel"
+    },
+    {
+        "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa7",
+        "email": "david@example.com",
+        "first_name": "david",
+        "last_name": "rodriguez",
+        "birth_date": "2022-07-12",
+        "password": "holasoydavid"
+    },
+    {
+        "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa8",
+        "email": "rocio@example.com",
+        "first_name": "rocio",
+        "last_name": "rodriguez",
+        "birth_date": "2022-07-12",
+        "password": "holasoyrocio"
+    },
+    {
+        "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa9",
+        "email": "joselyn@example.com",
+        "first_name": "joselyn",
+        "last_name": "ramirez",
+        "birth_date": "2022-07-13",
+        "password": "holasoyjoselyn"
+    }
+]

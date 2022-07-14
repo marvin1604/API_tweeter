@@ -388,7 +388,7 @@ def post(tweet: Tweet = Body(...)):
         tweet_dict["by"]["birth_date"] = str(tweet_dict["by"]["birth_date"])
 
         results.append(tweet_dict)
-        with open("users.json", "w", encoding="utf-8") as f:
+        with open("tweets.json", "w", encoding="utf-8") as f:
             f.seek(0)
             f.write(json.dumps(results))
             return tweet
@@ -439,15 +439,50 @@ def show_a_tweet(tweet_id: UUID = Path(
 ### Delete a Tweet
 @app.delete(
     path="/tweet/{tweet_id}/delete",
-    response_model = Tweet,
+    # response_model = Tweet,
     status_code = status.HTTP_200_OK,
     summary = "Delete a tweet",
     tags = ["Tweets"]
 
     )
 
-def delete_a_tweet():
-    pass
+def delete_a_tweet(tweet_id: UUID = Path(
+    ...,
+    title = "tweet ID",
+    description = " this is the tweet ID",
+    example= "3fa85f64-5717-4562-b3fc-2c963f66afa1"
+    )
+):
+    """
+    Delete a Tweet
+    
+    This path operation delete a tweet in the app
+    
+    Parameters:
+        - tweet_id : UUID
+
+    returns a json list with the tweet delete, with the following keys
+        -tweet_id  : UUID
+        -content   : str
+        -create_at : datetime
+        -update_at : Optional[datetime]
+        -by        : User
+    """
+    with open("tweets.json", "r+", encoding= "utf-8") as f:
+        datos = json.loads(f.read())
+        for tweet in datos:
+            if tweet["tweet_id"] == str(tweet_id):
+                datos.remove(tweet)
+                with open("tweets.json", "w", encoding="utf-8") as f:
+                    f.seek(0)
+                    f.write(json.dumps(datos))
+                    return "tweet delete", tweet
+                
+                      
+        raise HTTPException(
+            status_code = status.HTTP_404_NOT_FOUND,
+            detail = "¡tweet not exist!"
+              )
 
 ### Update a Tweet
 @app.put(
