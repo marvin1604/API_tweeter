@@ -333,6 +333,8 @@ def update_a_user(user_id: UUID = Path(
     )
 def home():
     """
+    Show all Tweets
+    
     This path operation shows all tweets in the app
     
     Parameters:
