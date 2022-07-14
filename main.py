@@ -487,12 +487,57 @@ def delete_a_tweet(tweet_id: UUID = Path(
 ### Update a Tweet
 @app.put(
     path="/tweet/{tweet_id}/update",
-    response_model = Tweet,
+    # response_model = Tweet,
     status_code = status.HTTP_200_OK,
     summary = "Update a tweet",
     tags = ["Tweets"]
 
     )
 
-def update_a_tweet():
-    pass
+def update_a_tweet(tweet_id: UUID = Path(
+    ...,
+    title = "Tweet ID",
+    description = " this is the tweet ID",
+    example= "3fa85f64-5717-4562-b3fc-2c963f66afa8"
+    ),
+    tweet: Tweet = Body(...)
+):
+    """
+    Update a Tweet
+    
+    This path operation update an tweet in the app
+    
+    Parameters:
+        - tweet_id : UUID
+
+    returns a json list with the tweet update, with the following keys
+        -tweet_id  : UUID
+        -content   : str
+        -create_at : datetime
+        -update_at : Optional[datetime]
+        -by        : User
+    """
+    
+    tweet_dict = tweet.dict()
+    tweet_dict["tweet_id"] = str(tweet_dict["tweet_id"])
+    tweet_dict["content"] = str(tweet_dict["content"])
+    tweet_dict["create_at"] = str(tweet_dict["create_at"])
+    tweet_dict["update_at"] = str(tweet_dict["update_at"])
+    tweet_dict["by"]["user_id"] = str(tweet_dict["by"]["user_id"])
+    tweet_dict["by"]["birth_date"] = str(tweet_dict["by"]["birth_date"])
+
+    with open("tweets.json", "r+", encoding= "utf-8") as f:
+        datos = json.loads(f.read())
+        for tweet in datos:
+            if tweet["tweet_id"] == str(tweet_id):
+                datos[datos.index(tweet)] = tweet_dict
+                with open("tweets.json", "w", encoding="utf-8") as f:
+                    f.seek(0)
+                    f.write(json.dumps(datos))
+                    return "tweet update", tweet
+                
+                      
+        raise HTTPException(
+            status_code = status.HTTP_404_NOT_FOUND,
+            detail = "¡tweet not exist!"
+              )
