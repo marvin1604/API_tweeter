@@ -13,7 +13,7 @@ from pydantic import EmailStr
 from pydantic import Field
 
 # FastAPI
-from fastapi import Body, FastAPI
+from fastapi import Body, FastAPI, Path
 from fastapi import status
 from fastapi import Body, Form
 from fastapi import HTTPException
@@ -156,6 +156,8 @@ def login(email: EmailStr= Form(...), password: str = Form(...)):
 
 def show_all_users():
     """
+    Show all Users
+
     This path operation shows all users in the app
     
     Parameters:
@@ -175,15 +177,39 @@ def show_all_users():
 ### Show a user
 @app.get(
     path="/users/{user_id}",
-    response_model = User,
+    # response_model = User,
     status_code = status.HTTP_200_OK,
     summary = "Show a User",
     tags = ["Users"]
 
     )
 
-def show_a_user():
-    pass
+def show_a_user(user_id: UUID = Path(..., example= "3fa85f64-5717-4562-b3fc-2c963f66afa8" )):
+    """
+    Show a User
+    
+    This path operation show if a user is in the app
+    
+    Parameters:
+        - user_id : UUID
+
+    returns a json list with all users in the app, with the following keys
+        - user_id    : UUID
+        - email      : Emailstr
+        - first_name : str
+        - last_name  : str
+        - birth_date : str
+    """
+    with open("users.json", "r", encoding= "utf-8") as f:
+        datos = json.loads(f.read())
+        for user in datos:
+            if user["user_id"] == str(user_id) :
+                return "user exist!!",  user
+        
+        raise HTTPException(
+            status_code = status.HTTP_404_NOT_FOUND,
+            detail = "¡user not exist!"
+              )
 
 ### Delete a User
 @app.delete(
